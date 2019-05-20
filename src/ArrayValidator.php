@@ -5,7 +5,7 @@
  * manchenkoff.me © 2019
  */
 
-namespace Manchenkov\Validators;
+namespace Manchenkov\Yii\Validators;
 
 use yii\base\DynamicModel;
 use yii\base\InvalidArgumentException;
@@ -28,7 +28,7 @@ use yii\validators\Validator;
  *      [['id', 'login', 'active'], 'required'],
  * ]],
  * ```
- * @package Manchenkov\Validators
+ * @package Manchenkov\Yii\Validators
  */
 class ArrayValidator extends Validator
 {
