@@ -5,7 +5,7 @@
  * manchenkoff.me © 2019
  */
 
-namespace Manchenkov\Yii\Validators;
+namespace manchenkov\yii\validators;
 
 use yii\base\DynamicModel;
 use yii\base\InvalidArgumentException;
