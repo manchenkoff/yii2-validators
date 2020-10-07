@@ -5,6 +5,8 @@
  * manchenkoff.me © 2019
  */
 
+declare(strict_types=1);
+
 namespace manchenkov\yii\validators;
 
 use yii\base\DynamicModel;
@@ -34,36 +36,34 @@ class ArrayValidator extends Validator
 {
     /** @var int Encode to JSON after validation */
     const JSON_ENCODE = 1;
+
     /** @var int Decode to JSON before validation */
     const JSON_DECODE = 2;
+
     /** @var int Use both decode/encode operations with validation */
     const JSON_BOTH = 3;
 
     /**
      * @var array Validation rules for array attributes
      */
-    public $rules;
+    public array $rules;
 
     /**
      * @var int JSON processing mode (use class constants)
      */
-    public $json;
+    public int $json;
+
     /**
      * @var bool Use validation rules for each item in array
      */
-    public $each = false;
+    public bool $each = false;
+
     /**
      * @var array Validation errors
      * [attribute => error]
      */
-    private $_errors = [];
+    private array $_errors = [];
 
-    /**
-     * Validate model array attribute by rules
-     *
-     * @param \yii\base\Model $model
-     * @param string $attribute
-     */
     public function validateAttribute($model, $attribute)
     {
         // get original value from model
@@ -89,7 +89,9 @@ class ArrayValidator extends Validator
                     // validate value with dynamic model
                     $validated = $this->validateDynamicModel($origin);
                 } else {
-                    throw new InvalidArgumentException("Attribute '{$attribute}' seems to contains different objects, use 'each' property");
+                    throw new InvalidArgumentException(
+                        "Attribute '{$attribute}' seems to contains different objects, use 'each' property"
+                    );
                 }
             }
         } else {
@@ -118,7 +120,7 @@ class ArrayValidator extends Validator
      *
      * @return array
      */
-    private function validateDynamicModel(array $properties)
+    private function validateDynamicModel(array $properties): array
     {
         // instantiate new model with necessary attributes
         $model = new DynamicModel($properties);
@@ -153,7 +155,8 @@ class ArrayValidator extends Validator
         } else {
             // or set up some errors with empty changes array
             $this->_errors = array_merge(
-                $this->_errors, $model->errors
+                $this->_errors,
+                $model->errors
             );
 
             return [];
